@@ -8,16 +8,54 @@
 
 import UIKit
 
+struct OurModel: Decodable {
+    var id: Int?
+    var first_name: String?
+    var last_name: String?
+    var email: String?
+}
+
+
 class IndexTableViewController: UITableViewController {
         
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        
+        
+        let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
+        
+        let task = session.dataTask(with: url) {
+            data, response, error in
+            
+            //checking for errors
+            guard error == nil else {
+                print("error: \(error!)")
+                return
+            }
+            
+            // check for data being returned
+            guard let content = data else {
+                
+                print("No data")
+                return
+            }
+            
+            guard let jsonToModel = (try? JSONDecoder().decode([OurModel].self, from: content)) else {
+                print("Not containing JSON")
+                return
+            }
+            
+            print(jsonToModel[0])
+        }
+            task.resume()
 
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
     }
 
     // MARK: - Table view data source
@@ -77,14 +115,6 @@ class IndexTableViewController: UITableViewController {
     }
     */
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+    
     
 }
