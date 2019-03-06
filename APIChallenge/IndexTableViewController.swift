@@ -8,77 +8,63 @@
 
 import UIKit
 
-struct OurModel: Decodable {
-    var id: Int?
-    var first_name: String?
-    var last_name: String?
-    var email: String?
-}
 
 
 class IndexTableViewController: UITableViewController {
         
+    let cellIdentifier = "Cell"
     
+    var first_name_array = [String]()
+    var last_name_array = [String]()
+    var email_array = [String]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let config = URLSessionConfiguration.default
-        let session = URLSession(configuration: config)
+      
+        tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        let session = task
+        print(session)
         
-        
-        let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
-        
-        let task = session.dataTask(with: url) {
-            data, response, error in
-            
-            //checking for errors
-            guard error == nil else {
-                print("error: \(error!)")
-                return
-            }
-            
-            // check for data being returned
-            guard let content = data else {
-                
-                print("No data")
-                return
-            }
-            
-            guard let jsonToModel = (try? JSONDecoder().decode([OurModel].self, from: content)) else {
-                print("Not containing JSON")
-                return
-            }
-            
-            print(jsonToModel[0])
-        }
-            task.resume()
-
-        
+//        for i in session {
+//            if let first_name = i.first_name {
+//                first_name_array.append(first_name)
+//            }
+//            if let last_name = i.last_name {
+//                last_name_array.append(last_name)
+//            }
+//            if let email = i.email {
+//                email_array.append(email)
+//            }
+//        }
     }
+  
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        print(first_name_array)
+        return first_name_array.count
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
 
-        // Configure the cell...
+         //Configure the cell...
+        
+        cell.textLabel?.text = first_name_array[indexPath.row]
+        print(cell)
 
         return cell
     }
-    */
+ 
 
     /*
     // Override to support conditional editing of the table view.

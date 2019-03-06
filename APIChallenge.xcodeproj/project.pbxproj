@@ -11,6 +11,9 @@
 		C914ACD6222D53EB00C330A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C914ACD5222D53EB00C330A0 /* Assets.xcassets */; };
 		C914ACE2222D554100C330A0 /* IndexTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914ACE0222D554100C330A0 /* IndexTableViewController.swift */; };
 		C914ACE3222D554100C330A0 /* default.xib in Resources */ = {isa = PBXBuildFile; fileRef = C914ACE1222D554100C330A0 /* default.xib */; };
+		C995A18E222EA803004A6557 /* IndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C995A18D222EA803004A6557 /* IndexTableViewCell.swift */; };
+		C9B1AC8E222FC9BA007DA18F /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1AC8D222FC9BA007DA18F /* URLSession.swift */; };
+		C9B1AC91222FD565007DA18F /* GetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1AC90222FD565007DA18F /* GetModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +23,9 @@
 		C914ACDA222D53EB00C330A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C914ACE0222D554100C330A0 /* IndexTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTableViewController.swift; sourceTree = "<group>"; };
 		C914ACE1222D554100C330A0 /* default.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = default.xib; sourceTree = "<group>"; };
+		C995A18D222EA803004A6557 /* IndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTableViewCell.swift; sourceTree = "<group>"; };
+		C9B1AC8D222FC9BA007DA18F /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
+		C9B1AC90222FD565007DA18F /* GetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,12 +59,31 @@
 		C914ACCD222D53EA00C330A0 /* APIChallenge */ = {
 			isa = PBXGroup;
 			children = (
+				C9B1AC8F222FD536007DA18F /* Models */,
+				C9B1AC8C222FC996007DA18F /* Services */,
 				C914ACCE222D53EA00C330A0 /* AppDelegate.swift */,
 				C914ACE0222D554100C330A0 /* IndexTableViewController.swift */,
+				C995A18D222EA803004A6557 /* IndexTableViewCell.swift */,
 				C914ACD5222D53EB00C330A0 /* Assets.xcassets */,
 				C914ACDA222D53EB00C330A0 /* Info.plist */,
 			);
 			path = APIChallenge;
+			sourceTree = "<group>";
+		};
+		C9B1AC8C222FC996007DA18F /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C9B1AC8D222FC9BA007DA18F /* URLSession.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C9B1AC8F222FD536007DA18F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C9B1AC90222FD565007DA18F /* GetModel.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,7 +156,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9B1AC91222FD565007DA18F /* GetModel.swift in Sources */,
+				C995A18E222EA803004A6557 /* IndexTableViewCell.swift in Sources */,
 				C914ACE2222D554100C330A0 /* IndexTableViewController.swift in Sources */,
+				C9B1AC8E222FC9BA007DA18F /* URLSession.swift in Sources */,
 				C914ACCF222D53EA00C330A0 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
