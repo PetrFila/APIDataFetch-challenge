@@ -26,6 +26,17 @@ class IndexTableViewController: UITableViewController {
         let session = task
         print(session)
         
+        let serviceClass = MyService()
+        serviceClass.fetchData { tuple in
+            self.first_name_array = tuple.0
+            self.last_name_array = tuple.1
+            self.email_array = tuple.2
+            
+            print("the first name array is \(self.first_name_array)")
+            print("the last name array is \(self.last_name_array)")
+            print("the email array is \(self.email_array)")
+        }
+        
 //        for i in session {
 //            if let first_name = i.first_name {
 //                first_name_array.append(first_name)
