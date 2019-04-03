@@ -9,82 +9,65 @@
 import UIKit
 
 class IndexTableViewController: UITableViewController {
-        
+    
+    let cellIdentifier = "Cell"
+    // empty array for our future data
+    var dataInArray = [OurModel]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
+        // creating object from our URL Session service class
+        let serviceClass = MyService()
+        // using the object method to fetch data from API
+        // using closure to pass the data to this controller
+        serviceClass.fetchData { person in
+            
+            
+            print(person)
+            // assigning the decoded data to external variable of type array
+            self.dataInArray = person
+            
+            
+            // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
+            // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
+            DispatchQueue.main.async {
+                
+                self.tableView.reloadData()
+                
+            }
+            
+        }
+        
     }
-
+    
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        // checking and returning the lenght of the data array to get the right amount of cells created
+        return dataInArray.count
+        
     }
-
-    /*
+    
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
+        //Configure the cell...
+        
+        let ourModelAtRow = dataInArray[indexPath.row]
+        cell.textLabel?.text = ourModelAtRow.first_name  // dataInArray[1]
+        cell.textLabel?.text = ourModelAtRow.last_name
+        cell.textLabel?.text = ourModelAtRow.email
         return cell
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
     
 }
