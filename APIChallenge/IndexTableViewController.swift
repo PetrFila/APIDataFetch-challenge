@@ -8,46 +8,39 @@
 
 import UIKit
 
-
-
 class IndexTableViewController: UITableViewController {
         
     let cellIdentifier = "Cell"
-    
-    var first_name_array = [String]()
-    var last_name_array = [String]()
-    var email_array = [String]()
-    
+    // empty array for our future data
+    var dataInArray = [OurModel]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+    
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-        let session = task
-        print(session)
-        
+       
+        // creating object from our URL Session service class
         let serviceClass = MyService()
-        serviceClass.fetchData { tuple in
-            self.first_name_array = tuple.0
-            self.last_name_array = tuple.1
-            self.email_array = tuple.2
+        // using the object method to fetch data from API
+        // using closure to pass the data to this controller
+        serviceClass.fetchData { person in
             
-            print("the first name array is \(self.first_name_array)")
-            print("the last name array is \(self.last_name_array)")
-            print("the email array is \(self.email_array)")
+           
+            print(person)
+            // assigning the decoded data to external variable of type array
+            self.dataInArray = person
+
+            
+            // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
+            // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
+            DispatchQueue.main.async {
+                
+                self.tableView.reloadData()
+                
+            }
+        
         }
         
-//        for i in session {
-//            if let first_name = i.first_name {
-//                first_name_array.append(first_name)
-//            }
-//            if let last_name = i.last_name {
-//                last_name_array.append(last_name)
-//            }
-//            if let email = i.email {
-//                email_array.append(email)
-//            }
-//        }
     }
   
 
@@ -59,9 +52,9 @@ class IndexTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        print(first_name_array)
-        return first_name_array.count
+        // checking and returning the lenght of the data array to get the right amount of cells created
+        return dataInArray.count
+        
     }
 
     
@@ -70,48 +63,11 @@ class IndexTableViewController: UITableViewController {
 
          //Configure the cell...
         
-        cell.textLabel?.text = first_name_array[indexPath.row]
-        print(cell)
-
+        let ourModelAtRow = dataInArray[indexPath.row]
+        cell.textLabel?.text = ourModelAtRow.first_name  // dataInArray[1]
+        cell.textLabel?.text = ourModelAtRow.last_name
+        cell.textLabel?.text = ourModelAtRow.email
         return cell
     }
- 
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    
-    
+     
 }
