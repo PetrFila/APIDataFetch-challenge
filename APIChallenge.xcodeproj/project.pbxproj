@@ -59,11 +59,11 @@
 		C914ACCD222D53EA00C330A0 /* APIChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				C9B1AC8F222FD536007DA18F /* Models */,
-				C9B1AC8C222FC996007DA18F /* Services */,
 				C914ACCE222D53EA00C330A0 /* AppDelegate.swift */,
 				C914ACE0222D554100C330A0 /* IndexTableViewController.swift */,
 				C995A18D222EA803004A6557 /* IndexTableViewCell.swift */,
+				C9B1AC8F222FD536007DA18F /* Models */,
+				C9B1AC8C222FC996007DA18F /* Services */,
 				C914ACD5222D53EB00C330A0 /* Assets.xcassets */,
 				C914ACDA222D53EB00C330A0 /* Info.plist */,
 			);

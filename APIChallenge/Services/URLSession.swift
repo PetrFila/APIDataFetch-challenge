@@ -8,8 +8,28 @@
 
 import UIKit
 
+/* 3 problems
+ 1. how to access another property of a class in another property that need to be instantiated -> use lazy var
+ 2. what's the best way to create a service method -> use a class
+ 3. how to pass data from service request to other objects (eg. UIViewController) -> use completion handlers
+ */
 
-        let task = session.dataTask(with: url) {
+/*
+ using model for json decoded data to be passed to the Table View Controller
+ */
+
+
+class MyService {
+    let config = URLSessionConfiguration.default
+    
+    lazy var session: URLSession = {
+        URLSession(configuration: config)
+    }()
+    
+    let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
+    
+    func fetchData(completion: @escaping (_: [OurModel]) -> Void) {
+        _ = session.dataTask(with: url) {
             data, response, error in
             
             //checking for errors
@@ -18,77 +38,23 @@ import UIKit
                 return
             }
             
-            // check for data being returned
+            // checking for data being returned
             guard let content = data else {
                 
                 print("No data")
                 return
             }
             
-<<<<<<< HEAD
-            if let content = data {
-                // copy line 61 onwards
-            } else {
-                return
-            }
-            
-            // serialise the data into array of any type
-            //    guard let json = (try? JSONSerialization.jsonObject(with:content, options: JSONSerialization.ReadingOptions.mutableContainers)) as? [AnyObject] else {
-            //        print("Not containing JSON")
-            //        return
-            //    }
-            //
-            //    print("json response dictionary is \n \(json)")
-            
-            
-=======
->>>>>>> f00d4f6048fb0b8a4b51d21c153f18ad1abcc372
+            // decoding the JSON and assign the data to the model
             guard let jsonToModel = (try? JSONDecoder().decode([OurModel].self, from: content)) else {
                 print("Not containing JSON")
                 return
             }
             
-            //    print(jsonToModel)
-            var first_name_array = [String]()
-            var last_name_array = [String]()
-            var email_array = [String]()
-            
-            for i in jsonToModel {
-                if let first_name = i.first_name {
-                    first_name_array.append(first_name)
-                }
-                if let last_name = i.last_name {
-                    last_name_array.append(last_name)
-                }
-                if let email = i.email {
-                    email_array.append(email)
-                }
-            }
-            
-            print(first_name_array)
-            print(last_name_array)
-            print(email_array)
-            
-<<<<<<< HEAD
-            completion((first_name_array, last_name_array, email_array))
+            // passing the jsonToModel variable to the Table View Controller
+            completion(jsonToModel)
             
             }.resume()
     }
 }
-=======
-            
-
-            }.resume()
-
- 
-//}
->>>>>>> f00d4f6048fb0b8a4b51d21c153f18ad1abcc372
-
-
-
-
-
-
-
-  
 
