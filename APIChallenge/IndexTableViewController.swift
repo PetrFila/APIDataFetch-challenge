@@ -41,6 +41,9 @@ class IndexTableViewController: UITableViewController {
             
         }
         
+        tableView.rowHeight = UITableView.automaticDimension
+//        tableView.estimatedRowHeight = 1300
+        
     }
     
     
@@ -59,14 +62,15 @@ class IndexTableViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! IndexTableViewCell
         
         //Configure the cell...
         
         let ourModelAtRow = dataInArray[indexPath.row]
-        cell.textLabel?.text = ourModelAtRow.first_name  // dataInArray[1]
-        cell.textLabel?.text = ourModelAtRow.last_name
-        cell.textLabel?.text = ourModelAtRow.email
+        cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
+        cell.lastName = ourModelAtRow.last_name
+        cell.email = ourModelAtRow.email
+        cell.layoutSubviews()
         return cell
     }
     
