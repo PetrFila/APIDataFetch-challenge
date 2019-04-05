@@ -13,9 +13,13 @@ class IndexTableViewController: UITableViewController {
     let cellIdentifier = "Cell"
     // empty array for our future data
     var dataInArray = [OurModel]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(moveToDetailScreen))
+        navigationItem.rightBarButtonItem = addButton
         
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
@@ -74,4 +78,19 @@ class IndexTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        // this recognises what the user taps on by getting the number of cell index from the table view array
+        let detailIndex = dataInArray[indexPath.row]
+        let detailScreen = Details()
+        detailScreen.detailFirstName = detailIndex.first_name
+        detailScreen.detailLastName = detailIndex.last_name
+        detailScreen.detailEmail = detailIndex.email
+        self.present(detailScreen, animated: true, completion: nil)
+
+    }
+    
+    @objc func moveToDetailScreen() {
+        show(Details(), sender: self)
+    }
 }

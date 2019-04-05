@@ -14,30 +14,30 @@ class IndexTableViewCell: UITableViewCell {
     var lastName: String?
     var email: String?
     
-    lazy var firstNameView: UITextView = {
-        var textView = UITextView()
+    lazy var firstNameView: UILabel = {
+        var textView = UILabel()
 //        textView.font = UIFont.systemFont(ofSize: 16)
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isScrollEnabled = false
 //        textView.backgroundColor = UIColor.yellow
+        textView.isUserInteractionEnabled = false
         return textView
     }()
     
-    lazy var lastNameView: UITextView = {
-        var textView = UITextView()
+    lazy var lastNameView: UILabel = {
+        var textView = UILabel()
 //        textView.font = UIFont.systemFont(ofSize: 16)
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isScrollEnabled = false
 //        textView.backgroundColor = UIColor.red
+        textView.isUserInteractionEnabled = false
         return textView
     }()
     
-    lazy var emailView: UITextView = {
-        var textView = UITextView()
+    lazy var emailView: UILabel = {
+        var textView = UILabel()
 //        textView.font = UIFont.systemFont(ofSize: 16)
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.isScrollEnabled = false
 //        textView.backgroundColor = UIColor.blue
+        textView.isUserInteractionEnabled = false
         return textView
     }()
     
