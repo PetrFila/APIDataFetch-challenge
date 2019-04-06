@@ -17,9 +17,9 @@ class IndexTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(moveToDetailScreen))
-        navigationItem.rightBarButtonItem = addButton
+//        
+//        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(moveToDetailScreen))
+//        navigationItem.rightBarButtonItem = addButton
         
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
@@ -86,7 +86,8 @@ class IndexTableViewController: UITableViewController {
         detailScreen.detailFirstName = detailIndex.first_name
         detailScreen.detailLastName = detailIndex.last_name
         detailScreen.detailEmail = detailIndex.email
-        self.present(detailScreen, animated: true, completion: nil)
+//        self.present(detailScreen, animated: true, completion: nil)
+        self.navigationController?.pushViewController(detailScreen, animated: true)
 
     }
     

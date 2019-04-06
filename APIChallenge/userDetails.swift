@@ -39,8 +39,8 @@ class Details: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-      
-//        view.backgroundColor = UIColor.white
+       
+        view.backgroundColor = UIColor.white
         view.addSubview(firstNameDetails)
         viewDatadetails()
         constraints()
@@ -62,10 +62,13 @@ class Details: UIViewController {
     
     func constraints() {
         firstNameDetails.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        firstNameDetails.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
 
     }
     
- 
+    @objc func moveToIndexScreen() {
+        show(IndexTableViewController(), sender: self)
+    }
     
     
 }
