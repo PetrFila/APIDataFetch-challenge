@@ -13,6 +13,9 @@ class IndexTableViewController: UITableViewController {
     let cellIdentifier = "Cell"
     // empty array for our future data
     var dataInArray = [OurModel]()
+    // arrow image in the cell
+    var navImage = UIImage(named: "icons8-back-96")
+
 
     
     override func viewDidLoad() {
@@ -45,13 +48,14 @@ class IndexTableViewController: UITableViewController {
             
         }
         
-        tableView.rowHeight = UITableView.automaticDimension
-//        tableView.estimatedRowHeight = 1300
-        
     }
     
     
     // MARK: - Table view data source
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -74,6 +78,7 @@ class IndexTableViewController: UITableViewController {
         cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
         cell.lastName = ourModelAtRow.last_name
         cell.email = ourModelAtRow.email
+        cell.navImageCell = navImage
         cell.layoutSubviews()
         return cell
     }
@@ -86,6 +91,7 @@ class IndexTableViewController: UITableViewController {
         detailScreen.detailFirstName = detailIndex.first_name
         detailScreen.detailLastName = detailIndex.last_name
         detailScreen.detailEmail = detailIndex.email
+        detailScreen.detailID = detailIndex.id
 //        self.present(detailScreen, animated: true, completion: nil)
         self.navigationController?.pushViewController(detailScreen, animated: true)
 

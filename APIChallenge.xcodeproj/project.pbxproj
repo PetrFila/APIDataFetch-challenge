@@ -61,10 +61,8 @@
 		C914ACCD222D53EA00C330A0 /* APIChallenge */ = {
 			isa = PBXGroup;
 			children = (
-				C914ACCE222D53EA00C330A0 /* AppDelegate.swift */,
-				C914ACE0222D554100C330A0 /* IndexTableViewController.swift */,
-				C995A18D222EA803004A6557 /* IndexTableViewCell.swift */,
-				C9FF4A3B2256249400CB0CE8 /* userDetails.swift */,
+				C9FF4A3D225A17D700CB0CE8 /* View */,
+				C9FF4A3E225A17EE00CB0CE8 /* Controller */,
 				C9B1AC8F222FD536007DA18F /* Models */,
 				C9B1AC8C222FC996007DA18F /* Services */,
 				C914ACD5222D53EB00C330A0 /* Assets.xcassets */,
@@ -87,6 +85,24 @@
 				C9B1AC90222FD565007DA18F /* GetModel.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C9FF4A3D225A17D700CB0CE8 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C995A18D222EA803004A6557 /* IndexTableViewCell.swift */,
+				C9FF4A3B2256249400CB0CE8 /* userDetails.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		C9FF4A3E225A17EE00CB0CE8 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				C914ACCE222D53EA00C330A0 /* AppDelegate.swift */,
+				C914ACE0222D554100C330A0 /* IndexTableViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
