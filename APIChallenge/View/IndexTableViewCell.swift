@@ -26,9 +26,7 @@ class IndexTableViewCell: UITableViewCell {
     
     lazy var emailView: UILabel = {
         var textView = UILabel()
-//        textView.font = UIFont.systemFont(ofSize: 16)
         textView.translatesAutoresizingMaskIntoConstraints = false
-        textView.backgroundColor = UIColor.cyan
         textView.isUserInteractionEnabled = false
         textView.numberOfLines = 0
         textView.lineBreakMode = .byWordWrapping
@@ -80,15 +78,15 @@ class IndexTableViewCell: UITableViewCell {
     func constraints() {
         // word wrapping works only for  single UILabel
         
-        nameView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        nameView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        nameView.bottomAnchor.constraint(equalTo: self.emailView.topAnchor).isActive = true
+        nameView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        nameView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
+        nameView.bottomAnchor.constraint(equalTo: self.emailView.topAnchor, constant: -10).isActive = true
         nameView.rightAnchor.constraint(equalTo: self.displayImage.leftAnchor, constant: -100).isActive = true
         
         emailView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         emailView.topAnchor.constraint(equalTo: self.nameView.bottomAnchor).isActive = true
         emailView.rightAnchor.constraint(equalTo: self.displayImage.leftAnchor, constant: -100).isActive = true
-        emailView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        emailView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         
         
         displayImage.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
