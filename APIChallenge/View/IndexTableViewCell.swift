@@ -80,20 +80,18 @@ class IndexTableViewCell: UITableViewCell {
         
         nameView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         nameView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        nameView.bottomAnchor.constraint(equalTo: self.emailView.topAnchor, constant: -10).isActive = true
         nameView.rightAnchor.constraint(equalTo: self.displayImage.leftAnchor, constant: -100).isActive = true
         
         emailView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        emailView.topAnchor.constraint(equalTo: self.nameView.bottomAnchor).isActive = true
+        emailView.topAnchor.constraint(equalTo: self.nameView.bottomAnchor, constant: 5).isActive = true
         emailView.rightAnchor.constraint(equalTo: self.displayImage.leftAnchor, constant: -100).isActive = true
         emailView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         
         
         displayImage.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         displayImage.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        displayImage.leftAnchor.constraint(equalTo: self.emailView.rightAnchor).isActive = true
-        displayImage.heightAnchor.constraint(equalToConstant: 25).isActive = true
-        displayImage.widthAnchor.constraint(equalToConstant: 25).isActive = true
+        displayImage.heightAnchor.constraint(equalToConstant: 20).isActive = true
+        displayImage.widthAnchor.constraint(equalToConstant: 20).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

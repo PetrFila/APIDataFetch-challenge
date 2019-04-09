@@ -17,51 +17,25 @@ class Details: UIViewController {
     var detailID: Int?
     
     
-    lazy var topContainerView:UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true // this will make sure its children do not go out of the boundary
-        view.backgroundColor = UIColor.lightGray
-
-        return view
-    }()
-    
-    lazy var firstNameDetails: UILabel = {
+    lazy var nameDetailView: UILabel = {
         var textView = UILabel()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.lineBreakMode = .byWordWrapping
         textView.numberOfLines = 0
-                textView.backgroundColor = UIColor.yellow
         return textView
-    }()
-    
-    lazy var lastNameDetails: UILabel = {
-        var textView = UILabel()
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        //        textView.backgroundColor = UIColor.red
-        return textView
-    }()
-    
-    lazy var bottomContainerView:UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.clipsToBounds = true // this will make sure its children do not go out of the boundary
-        view.backgroundColor = UIColor.cyan
-        
-        return view
     }()
     
     lazy var emailDetails: UILabel = {
         var textView = UILabel()
         textView.translatesAutoresizingMaskIntoConstraints = false
-                textView.backgroundColor = UIColor.red
+        textView.lineBreakMode = .byWordWrapping
+        textView.numberOfLines = 0
         return textView
     }()
     
     lazy var IdDetails: UILabel = {
         var textView = UILabel()
         textView.translatesAutoresizingMaskIntoConstraints = false
-        //        textView.backgroundColor = UIColor.blue
         return textView
     }()
     
@@ -70,26 +44,27 @@ class Details: UIViewController {
         
         view.backgroundColor = UIColor.white
         
-        view.addSubview(topContainerView)
-        topContainerView.addSubview(firstNameDetails)
-        topContainerView.addSubview(lastNameDetails)
-        
-        view.addSubview(bottomContainerView)
-        bottomContainerView.addSubview(emailDetails)
-        bottomContainerView.addSubview(IdDetails)
+        view.addSubview(nameDetailView)
+        view.addSubview(emailDetails)
+        view.addSubview(IdDetails)
         
         viewDataDetails()
         constraints()
     }
     
     func viewDataDetails() {
+        
+        var nameDetailTuple: (String, String) = ("","")
+        
         if let detailFirstName = detailFirstName {
-            firstNameDetails.text = detailFirstName
+            nameDetailTuple.0 = detailFirstName
         }
         
         if let detailLastName = detailLastName {
-            lastNameDetails.text = detailLastName
+            nameDetailTuple.1 = detailLastName
         }
+        
+        nameDetailView.text = nameDetailTuple.0 + " " + nameDetailTuple.1
         
         if let detailEmail = detailEmail {
             emailDetails.text = detailEmail
@@ -98,36 +73,26 @@ class Details: UIViewController {
         if let detailID = detailID {
             IdDetails.text = String(detailID)
         }
+        
+            
     }
     
     func constraints() {
 
-        topContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        topContainerView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        topContainerView.heightAnchor.constraint(equalToConstant:40).isActive = true
-        topContainerView.widthAnchor.constraint(equalToConstant:300).isActive = true
 
-        firstNameDetails.leftAnchor.constraint(equalTo: topContainerView.leftAnchor, constant: 10).isActive = true
-//        firstNameDetails.rightAnchor.constraint(equalTo: lastNameDetails.leftAnchor, constant: -5).isActive = true
-       
-        
-        lastNameDetails.leftAnchor.constraint(equalTo: firstNameDetails.rightAnchor, constant: 5).isActive = true
-//        lastNameDetails.rightAnchor.constraint(equalTo: topContainerView.rightAnchor, constant: -10).isActive = true
+        nameDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
+        nameDetailView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        nameDetailView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
+
+        emailDetails.topAnchor.constraint(equalTo: nameDetailView.bottomAnchor, constant: 10).isActive = true
+        emailDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        emailDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
 
         
-        
-        bottomContainerView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        bottomContainerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 400).isActive = true
-        bottomContainerView.heightAnchor.constraint(equalToConstant:60).isActive = true
-        bottomContainerView.widthAnchor.constraint(equalToConstant:300).isActive = true
-        
-        
-        emailDetails.topAnchor.constraint(equalTo: bottomContainerView.topAnchor, constant: 5).isActive = true
-        emailDetails.leftAnchor.constraint(equalTo: bottomContainerView.leftAnchor, constant: 10).isActive = true
-        
-        
-        IdDetails.topAnchor.constraint(equalTo: emailDetails.bottomAnchor, constant: 5).isActive = true
-        IdDetails.leftAnchor.constraint(equalTo: bottomContainerView.leftAnchor, constant: 10).isActive = true
+        IdDetails.topAnchor.constraint(equalTo: emailDetails.bottomAnchor, constant: 10).isActive = true
+        IdDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        IdDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+
 
     }
     
