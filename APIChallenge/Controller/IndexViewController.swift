@@ -1,5 +1,5 @@
 //
-//  IndexTableViewController.swift
+//  IndexViewController.swift
 //  APIChallenge
 //
 //  Created by Petr Fila on 4/3/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class IndexTableViewController: UITableViewController {
+class IndexViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellIdentifier = "Cell"
     // empty array for our future data
@@ -16,13 +16,30 @@ class IndexTableViewController: UITableViewController {
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
 
-
+    
+    lazy var mainSegment: UISegmentedControl = {
+       var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
+        sc.translatesAutoresizingMaskIntoConstraints = false
+        sc.tintColor = UIColor.black
+        sc.selectedSegmentIndex = 0
+        sc.addTarget(self, action: #selector(handleSegmentChanges), for: .valueChanged)
+       return sc
+    }()
+    
+    
+    
+    lazy var tableView: UITableView = {
+        var table = UITableView()
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        
-//        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(moveToDetailScreen))
-//        navigationItem.rightBarButtonItem = addButton
+        view.backgroundColor = UIColor.white
+        view.addSubview(mainSegment)
+        
+        constraints()
+
         
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
@@ -50,26 +67,40 @@ class IndexTableViewController: UITableViewController {
         
     }
     
+    //MARK: - Segment
+    
+    @ objc fileprivate func handleSegmentChanges() {
+        if mainSegment.selectedSegmentIndex == 0 {
+            view.backgroundColor = UIColor.red
+        }
+        else if mainSegment.selectedSegmentIndex == 1 {
+            view.backgroundColor = UIColor.yellow
+        }
+        else {
+            view.backgroundColor = UIColor.cyan
+        }
+    }
+    
     
     // MARK: - Table view data source
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    public func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // checking and returning the lenght of the data array to get the right amount of cells created
         return dataInArray.count
         
     }
     
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! IndexTableViewCell
         
         //Configure the cell...
@@ -83,7 +114,7 @@ class IndexTableViewController: UITableViewController {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // this recognises what the user taps on by getting the number of cell index from the table view array
         let detailIndex = dataInArray[indexPath.row]
@@ -100,4 +131,17 @@ class IndexTableViewController: UITableViewController {
     @objc func moveToDetailScreen() {
         show(Details(), sender: self)
     }
+    
+    func constraints() {
+        // this is a different way of writing constraints
+        // no need to put .isActive after each and every constraint
+        NSLayoutConstraint.activate([
+        mainSegment.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        mainSegment.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+        mainSegment.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+        mainSegment.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+        mainSegment.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+
 }

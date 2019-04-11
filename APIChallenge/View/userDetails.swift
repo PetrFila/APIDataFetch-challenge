@@ -97,7 +97,7 @@ class Details: UIViewController {
     }
     
     @objc func moveToIndexScreen() {
-        show(IndexTableViewController(), sender: self)
+        show(IndexViewController(), sender: self)
     }
     
     
