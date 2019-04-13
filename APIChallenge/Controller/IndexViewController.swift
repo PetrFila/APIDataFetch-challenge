@@ -30,18 +30,26 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     lazy var tableView: UITableView = {
         var table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+
         return table
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+
+        
         view.backgroundColor = UIColor.white
         view.addSubview(mainSegment)
+        view.addSubview(tableView)
         
         constraints()
 
         
-        tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
         
         // creating object from our URL Session service class
         let serviceClass = MyService()
@@ -50,7 +58,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         serviceClass.fetchData { person in
             
             
-            print(person)
             // assigning the decoded data to external variable of type array
             self.dataInArray = person
             
@@ -66,21 +73,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         }
         
     }
-    
-    //MARK: - Segment
-    
-    @ objc fileprivate func handleSegmentChanges() {
-        if mainSegment.selectedSegmentIndex == 0 {
-            view.backgroundColor = UIColor.red
-        }
-        else if mainSegment.selectedSegmentIndex == 1 {
-            view.backgroundColor = UIColor.yellow
-        }
-        else {
-            view.backgroundColor = UIColor.cyan
-        }
-    }
-    
     
     // MARK: - Table view data source
     
@@ -104,8 +96,9 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! IndexTableViewCell
         
         //Configure the cell...
-        
+
         let ourModelAtRow = dataInArray[indexPath.row]
+
         cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
         cell.lastName = ourModelAtRow.last_name
         cell.email = ourModelAtRow.email
@@ -114,7 +107,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // this recognises what the user taps on by getting the number of cell index from the table view array
         let detailIndex = dataInArray[indexPath.row]
@@ -123,7 +116,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         detailScreen.detailLastName = detailIndex.last_name
         detailScreen.detailEmail = detailIndex.email
         detailScreen.detailID = detailIndex.id
-//        self.present(detailScreen, animated: true, completion: nil)
         self.navigationController?.pushViewController(detailScreen, animated: true)
 
     }
@@ -131,6 +123,22 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     @objc func moveToDetailScreen() {
         show(Details(), sender: self)
     }
+    
+    //MARK: - Segment
+    
+    @ objc fileprivate func handleSegmentChanges() {
+        if mainSegment.selectedSegmentIndex == 0 {
+            view.backgroundColor = UIColor.red
+        }
+        else if mainSegment.selectedSegmentIndex == 1 {
+            view.backgroundColor = UIColor.yellow
+        }
+        else {
+            view.backgroundColor = UIColor.cyan
+        }
+    }
+    
+    //MARK: - Constraints
     
     func constraints() {
         // this is a different way of writing constraints
@@ -141,6 +149,14 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         mainSegment.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
         mainSegment.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
         mainSegment.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        NSLayoutConstraint.activate([
+        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        tableView.topAnchor.constraint(equalTo: mainSegment.bottomAnchor, constant: 20),
+        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
 
