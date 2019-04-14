@@ -97,13 +97,38 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         //Configure the cell...
 
-        let ourModelAtRow = dataInArray[indexPath.row]
+        switch mainSegment.selectedSegmentIndex {
+        case 0:
+            let ourModelAtRow = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
+            cell.lastName = ourModelAtRow.last_name
+            cell.email = ourModelAtRow.email
+            cell.navImageCell = navImage
+            cell.layoutSubviews()
+        case 1:
+            let ourModelAtRow = dataInArray.sorted(by: {$0.first_name! < $1.first_name!})[indexPath.row]
+            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
+            cell.lastName = ourModelAtRow.last_name
+            cell.email = ourModelAtRow.email
+            cell.navImageCell = navImage
+            cell.layoutSubviews()
+        case 2:
+            let ourModelAtRow = dataInArray.sorted(by: {$0.last_name! < $1.last_name!})[indexPath.row]
+            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
+            cell.lastName = ourModelAtRow.last_name
+            cell.email = ourModelAtRow.email
+            cell.navImageCell = navImage
+            cell.layoutSubviews()
+        default:
+            let ourModelAtRow = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
+            cell.lastName = ourModelAtRow.last_name
+            cell.email = ourModelAtRow.email
+            cell.navImageCell = navImage
+            cell.layoutSubviews()
 
-        cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
-        cell.lastName = ourModelAtRow.last_name
-        cell.email = ourModelAtRow.email
-        cell.navImageCell = navImage
-        cell.layoutSubviews()
+        }
+        
         return cell
     }
     
@@ -127,15 +152,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     //MARK: - Segment
     
     @ objc fileprivate func handleSegmentChanges() {
-        if mainSegment.selectedSegmentIndex == 0 {
-            view.backgroundColor = UIColor.red
-        }
-        else if mainSegment.selectedSegmentIndex == 1 {
-            view.backgroundColor = UIColor.yellow
-        }
-        else {
-            view.backgroundColor = UIColor.cyan
-        }
+        self.tableView.reloadData()
     }
     
     //MARK: - Constraints
