@@ -20,7 +20,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     lazy var mainSegment: UISegmentedControl = {
        var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
         sc.translatesAutoresizingMaskIntoConstraints = false
-        sc.tintColor = UIColor.black
+        sc.tintColor = UIColor.blue
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleSegmentChanges), for: .valueChanged)
        return sc
@@ -76,23 +76,23 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     // MARK: - Table view data source
     
-    public func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
     
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // checking and returning the lenght of the data array to get the right amount of cells created
         return dataInArray.count
         
     }
     
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! IndexTableViewCell
         
         //Configure the cell...
@@ -132,17 +132,45 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         return cell
     }
     
-    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // this recognises what the user taps on by getting the number of cell index from the table view array
-        let detailIndex = dataInArray[indexPath.row]
+
         let detailScreen = Details()
-        detailScreen.detailFirstName = detailIndex.first_name
-        detailScreen.detailLastName = detailIndex.last_name
-        detailScreen.detailEmail = detailIndex.email
-        detailScreen.detailID = detailIndex.id
+      
+        switch mainSegment.selectedSegmentIndex {
+        case 0:
+            let detailIndex = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            detailScreen.detailFirstName = detailIndex.first_name
+            detailScreen.detailLastName = detailIndex.last_name
+            detailScreen.detailEmail = detailIndex.email
+            detailScreen.detailID = detailIndex.id
+           
+        case 1:
+            let detailIndex = dataInArray.sorted(by: {$0.first_name! < $1.first_name!})[indexPath.row]
+            detailScreen.detailFirstName = detailIndex.first_name
+            detailScreen.detailLastName = detailIndex.last_name
+            detailScreen.detailEmail = detailIndex.email
+            detailScreen.detailID = detailIndex.id
+        case 2:
+            let detailIndex = dataInArray.sorted(by: {$0.last_name! < $1.last_name!})[indexPath.row]
+            detailScreen.detailFirstName = detailIndex.first_name
+            detailScreen.detailLastName = detailIndex.last_name
+            detailScreen.detailEmail = detailIndex.email
+            detailScreen.detailID = detailIndex.id
+        default:
+            let detailIndex = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            detailScreen.detailFirstName = detailIndex.first_name
+            detailScreen.detailLastName = detailIndex.last_name
+            detailScreen.detailEmail = detailIndex.email
+            detailScreen.detailID = detailIndex.id
+            
+        }
+        
+        
         self.navigationController?.pushViewController(detailScreen, animated: true)
 
+ 
     }
     
     @objc func moveToDetailScreen() {
@@ -151,7 +179,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //MARK: - Segment
     
-    @ objc fileprivate func handleSegmentChanges() {
+    @ objc func handleSegmentChanges() {
         self.tableView.reloadData()
     }
     
