@@ -20,6 +20,7 @@ import UIKit
 
 
 class MyService {
+    
     let config = URLSessionConfiguration.default
     
     lazy var session: URLSession = {
@@ -40,7 +41,6 @@ class MyService {
             
             // checking for data being returned
             guard let content = data else {
-                
                 print("No data")
                 return
             }
@@ -53,8 +53,6 @@ class MyService {
             
             // passing the jsonToModel variable to the Table View Controller
             completion(jsonToModel)
-            
             }.resume()
     }
 }
-

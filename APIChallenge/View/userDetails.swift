@@ -16,7 +16,6 @@ class Details: UIViewController {
     var detailEmail: String?
     var detailID: Int?
     
-    
     lazy var nameDetailView: UILabel = {
         var textView = UILabel()
         textView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,45 +40,32 @@ class Details: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = UIColor.white
-        
         view.addSubview(nameDetailView)
         view.addSubview(emailDetails)
         view.addSubview(IdDetails)
-        
         viewDataDetails()
         constraints()
     }
     
     func viewDataDetails() {
-        
         var nameDetailTuple: (String, String) = ("","")
-        
         if let detailFirstName = detailFirstName {
             nameDetailTuple.0 = detailFirstName
         }
-        
         if let detailLastName = detailLastName {
             nameDetailTuple.1 = detailLastName
         }
-        
         nameDetailView.text = nameDetailTuple.0 + " " + nameDetailTuple.1
-        
         if let detailEmail = detailEmail {
             emailDetails.text = detailEmail
         }
-        
         if let detailID = detailID {
             IdDetails.text = String(detailID)
         }
-        
-            
     }
     
     func constraints() {
-
-
         nameDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
         nameDetailView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         nameDetailView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
@@ -87,18 +73,14 @@ class Details: UIViewController {
         emailDetails.topAnchor.constraint(equalTo: nameDetailView.bottomAnchor, constant: 10).isActive = true
         emailDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         emailDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
-
         
         IdDetails.topAnchor.constraint(equalTo: emailDetails.bottomAnchor, constant: 10).isActive = true
         IdDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         IdDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
-
-
     }
     
     @objc func moveToIndexScreen() {
         show(IndexViewController(), sender: self)
     }
-    
     
 }

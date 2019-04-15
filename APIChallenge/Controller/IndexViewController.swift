@@ -16,7 +16,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
 
-    
     lazy var mainSegment: UISegmentedControl = {
        var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
         sc.translatesAutoresizingMaskIntoConstraints = false
@@ -26,52 +25,37 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
        return sc
     }()
     
-    
-    
     lazy var tableView: UITableView = {
         var table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
-
         return table
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
-
-        
         view.backgroundColor = UIColor.white
         view.addSubview(mainSegment)
         view.addSubview(tableView)
-        
         constraints()
 
-        
-        
         // creating object from our URL Session service class
         let serviceClass = MyService()
         // using the object method to fetch data from API
         // using closure to pass the data to this controller
         serviceClass.fetchData { person in
             
-            
             // assigning the decoded data to external variable of type array
             self.dataInArray = person
-            
             
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
-                
                 self.tableView.reloadData()
-                
             }
-            
         }
-        
     }
     
     // MARK: - Table view data source
@@ -88,7 +72,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // checking and returning the lenght of the data array to get the right amount of cells created
         return dataInArray.count
-        
     }
     
     
@@ -100,77 +83,67 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         switch mainSegment.selectedSegmentIndex {
         case 0:
             let ourModelAtRow = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
-            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
-            cell.lastName = ourModelAtRow.last_name
+            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
+            cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
         case 1:
-            let ourModelAtRow = dataInArray.sorted(by: {$0.first_name! < $1.first_name!})[indexPath.row]
-            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
-            cell.lastName = ourModelAtRow.last_name
+            let ourModelAtRow = dataInArray.sorted(by: {$0.firstName! < $1.firstName!})[indexPath.row]
+            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
+            cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
         case 2:
-            let ourModelAtRow = dataInArray.sorted(by: {$0.last_name! < $1.last_name!})[indexPath.row]
-            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
-            cell.lastName = ourModelAtRow.last_name
+            let ourModelAtRow = dataInArray.sorted(by: {$0.lastName! < $1.lastName!})[indexPath.row]
+            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
+            cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
         default:
             let ourModelAtRow = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
-            cell.firstName = ourModelAtRow.first_name  // dataInArray[1]
-            cell.lastName = ourModelAtRow.last_name
+            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
+            cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
-
         }
-        
         return cell
     }
     
+    // this function recognises what the user taps on by getting the number of cell index from the table view array
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        // this recognises what the user taps on by getting the number of cell index from the table view array
-
         let detailScreen = Details()
-      
         switch mainSegment.selectedSegmentIndex {
         case 0:
             let detailIndex = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.first_name
-            detailScreen.detailLastName = detailIndex.last_name
+            detailScreen.detailFirstName = detailIndex.firstName
+            detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
            
         case 1:
-            let detailIndex = dataInArray.sorted(by: {$0.first_name! < $1.first_name!})[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.first_name
-            detailScreen.detailLastName = detailIndex.last_name
+            let detailIndex = dataInArray.sorted(by: {$0.firstName! < $1.firstName!})[indexPath.row]
+            detailScreen.detailFirstName = detailIndex.firstName
+            detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
         case 2:
-            let detailIndex = dataInArray.sorted(by: {$0.last_name! < $1.last_name!})[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.first_name
-            detailScreen.detailLastName = detailIndex.last_name
+            let detailIndex = dataInArray.sorted(by: {$0.lastName! < $1.lastName!})[indexPath.row]
+            detailScreen.detailFirstName = detailIndex.firstName
+            detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
         default:
             let detailIndex = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.first_name
-            detailScreen.detailLastName = detailIndex.last_name
+            detailScreen.detailFirstName = detailIndex.firstName
+            detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
-            
         }
-        
-        
         self.navigationController?.pushViewController(detailScreen, animated: true)
-
- 
     }
     
     @objc func moveToDetailScreen() {
