@@ -32,7 +32,7 @@ class Details: UIViewController {
         return textView
     }()
     
-    lazy var IdDetails: UILabel = {
+    lazy var idDetails: UILabel = {
         var textView = UILabel()
         textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
@@ -43,25 +43,30 @@ class Details: UIViewController {
         view.backgroundColor = UIColor.white
         view.addSubview(nameDetailView)
         view.addSubview(emailDetails)
-        view.addSubview(IdDetails)
+        view.addSubview(idDetails)
         viewDataDetails()
         constraints()
     }
     
     func viewDataDetails() {
+        
         var nameDetailTuple: (String, String) = ("","")
+        
         if let detailFirstName = detailFirstName {
             nameDetailTuple.0 = detailFirstName
         }
+        
         if let detailLastName = detailLastName {
             nameDetailTuple.1 = detailLastName
         }
+        
         nameDetailView.text = nameDetailTuple.0 + " " + nameDetailTuple.1
         if let detailEmail = detailEmail {
             emailDetails.text = detailEmail
         }
+        
         if let detailID = detailID {
-            IdDetails.text = String(detailID)
+            idDetails.text = String(detailID)
         }
     }
     
@@ -74,9 +79,9 @@ class Details: UIViewController {
         emailDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
         emailDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
         
-        IdDetails.topAnchor.constraint(equalTo: emailDetails.bottomAnchor, constant: 10).isActive = true
-        IdDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        IdDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+        idDetails.topAnchor.constraint(equalTo: emailDetails.bottomAnchor, constant: 10).isActive = true
+        idDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
+        idDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
     }
     
     @objc func moveToIndexScreen() {

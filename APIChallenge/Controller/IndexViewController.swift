@@ -15,32 +15,36 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     var dataInArray = [OurModel]()
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
-
+    
     lazy var mainSegment: UISegmentedControl = {
-       var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
+        var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
         sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = UIColor.blue
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleSegmentChanges), for: .valueChanged)
-       return sc
+        return sc
     }()
     
     lazy var tableView: UITableView = {
         var table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
+        
         return table
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
+        
         view.backgroundColor = UIColor.white
         view.addSubview(mainSegment)
         view.addSubview(tableView)
+        
         constraints()
-
+        
         // creating object from our URL Session service class
         let serviceClass = MyService()
         // using the object method to fetch data from API
@@ -53,9 +57,13 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
+                
                 self.tableView.reloadData()
+                
             }
+            
         }
+        
     }
     
     // MARK: - Table view data source
@@ -72,38 +80,43 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // checking and returning the lenght of the data array to get the right amount of cells created
         return dataInArray.count
+        
     }
     
-    
+    // this is called for every cell -> it's a loop
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as! IndexTableViewCell
+        
+        // safe unwrap of the cell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier) as? IndexTableViewCell
+            else { return UITableViewCell() }
         
         //Configure the cell...
-
+        
         switch mainSegment.selectedSegmentIndex {
         case 0:
-            let ourModelAtRow = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            // sorting was set up here -> bad practice as it is a loop inside of a loop
+            let ourModelAtRow = dataInArray[indexPath.row]
             cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
             cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
         case 1:
-            let ourModelAtRow = dataInArray.sorted(by: {$0.firstName! < $1.firstName!})[indexPath.row]
+            let ourModelAtRow = dataInArray[indexPath.row]
             cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
             cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
         case 2:
-            let ourModelAtRow = dataInArray.sorted(by: {$0.lastName! < $1.lastName!})[indexPath.row]
+            let ourModelAtRow = dataInArray[indexPath.row]
             cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
             cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
             cell.navImageCell = navImage
             cell.layoutSubviews()
         default:
-            let ourModelAtRow = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            let ourModelAtRow = dataInArray[indexPath.row]
             cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
             cell.lastName = ourModelAtRow.lastName
             cell.email = ourModelAtRow.email
@@ -114,36 +127,43 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     // this function recognises what the user taps on by getting the number of cell index from the table view array
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         let detailScreen = Details()
+        
         switch mainSegment.selectedSegmentIndex {
+        // sorting was set up here -> bad practice as it is a loop inside of a loop
         case 0:
-            let detailIndex = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            let detailIndex = dataInArray[indexPath.row]
             detailScreen.detailFirstName = detailIndex.firstName
             detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
-           
+            
         case 1:
-            let detailIndex = dataInArray.sorted(by: {$0.firstName! < $1.firstName!})[indexPath.row]
+            let detailIndex = dataInArray[indexPath.row]
             detailScreen.detailFirstName = detailIndex.firstName
             detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
         case 2:
-            let detailIndex = dataInArray.sorted(by: {$0.lastName! < $1.lastName!})[indexPath.row]
+            let detailIndex = dataInArray[indexPath.row]
             detailScreen.detailFirstName = detailIndex.firstName
             detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
         default:
-            let detailIndex = dataInArray.sorted(by: {$0.id! < $1.id!})[indexPath.row]
+            let detailIndex = dataInArray[indexPath.row]
             detailScreen.detailFirstName = detailIndex.firstName
             detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
+            
         }
+        
         self.navigationController?.pushViewController(detailScreen, animated: true)
+        
     }
     
     @objc func moveToDetailScreen() {
@@ -153,6 +173,28 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     //MARK: - Segment
     
     @ objc func handleSegmentChanges() {
+        // sort your data set. This is used for both screens: Table view and Details view
+        switch mainSegment.selectedSegmentIndex {
+        case 0:
+            dataInArray = dataInArray.sorted(by: {$0.id < $1.id})
+        case 1:
+            dataInArray = dataInArray.sorted(by: {
+                let fName1 = $0.firstName ?? ""
+                let fName2 = $1.firstName ?? ""
+                
+                return fName1 < fName2
+            })
+        case 2:
+            dataInArray = dataInArray.sorted(by: {
+                let lName1 = $0.lastName ?? ""
+                let lName2 = $1.lastName ?? ""
+                
+                return lName1 < lName2
+            })
+        default:
+            break
+        }
+        
         self.tableView.reloadData()
     }
     
@@ -162,20 +204,20 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         // this is a different way of writing constraints
         // no need to put .isActive after each and every constraint
         NSLayoutConstraint.activate([
-        mainSegment.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        mainSegment.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-        mainSegment.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-        mainSegment.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-        mainSegment.heightAnchor.constraint(equalToConstant: 40)
-        ])
+            mainSegment.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            mainSegment.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            mainSegment.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            mainSegment.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            mainSegment.heightAnchor.constraint(equalToConstant: 40)
+            ])
         
         NSLayoutConstraint.activate([
-        tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        tableView.topAnchor.constraint(equalTo: mainSegment.bottomAnchor, constant: 20),
-        tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-        tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
-        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-        ])
+            tableView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tableView.topAnchor.constraint(equalTo: mainSegment.bottomAnchor, constant: 20),
+            tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+            tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
     }
-
+    
 }

@@ -50,16 +50,21 @@ class IndexTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         var nameTuple: (String, String) = ("","")
+        
         if let firstName = firstName {
             nameTuple.0 = firstName
         }
+        
         if let lastName = lastName {
             nameTuple.1 = lastName
         }
+        
         nameView.text = nameTuple.0 + " " + nameTuple.1
+        
         if let email = email {
             emailView.text = email
         }
+        
         if let navImageCell = navImageCell {
             displayImage.image = navImageCell
         }

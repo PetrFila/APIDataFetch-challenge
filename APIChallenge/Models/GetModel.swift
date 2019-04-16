@@ -9,7 +9,7 @@
 import UIKit
 
 struct OurModel: Decodable {
-    var id: Int?
+    var id: Int
     var firstName: String?
     var lastName: String?
     var email: String?
