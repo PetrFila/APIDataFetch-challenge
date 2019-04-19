@@ -7,8 +7,16 @@
 //
 
 import UIKit
-
 class IndexViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    lazy var alertMessage : UILabel = {
+       var message = UILabel()
+       message.translatesAutoresizingMaskIntoConstraints = false
+       message.text = "Something went wrong \n Try again later"
+       message.textAlignment = .center
+       message.numberOfLines = 0
+       return message
+    }()
     
     let cellIdentifier = "Cell"
     // empty array for our future data
@@ -35,6 +43,8 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        alertMessage.isHidden = true
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(IndexTableViewCell.self, forCellReuseIdentifier: cellIdentifier)
@@ -42,6 +52,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         view.backgroundColor = UIColor.white
         view.addSubview(mainSegment)
         view.addSubview(tableView)
+        view.addSubview(alertMessage)
         
         constraints()
         
@@ -49,15 +60,27 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         let serviceClass = MyService()
         // using the object method to fetch data from API
         // using closure to pass the data to this controller
-        serviceClass.fetchData { person in
+        serviceClass.fetchData { person, error  in
             
             // assigning the decoded data to external variable of type array
-            self.dataInArray = person
+            
+            if let error = error {
+//                self.alertMessage.isHidden = false
+                print("Error message from index controller: ", error)
+                
+            }
+            
+            
+            self.dataInArray = person ?? []
+
             
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
-                
+                if error != nil {
+                    self.alertMessage.isHidden = false
+
+                }
                 self.tableView.reloadData()
                 
             }
@@ -217,6 +240,13 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+        
+        NSLayoutConstraint.activate([
+            alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+//            alertMessage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
+//            alertMessage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
             ])
     }
     

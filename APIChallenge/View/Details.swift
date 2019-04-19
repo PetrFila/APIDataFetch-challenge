@@ -61,6 +61,7 @@ class Details: UIViewController {
         }
         
         nameDetailView.text = nameDetailTuple.0 + " " + nameDetailTuple.1
+        
         if let detailEmail = detailEmail {
             emailDetails.text = detailEmail
         }

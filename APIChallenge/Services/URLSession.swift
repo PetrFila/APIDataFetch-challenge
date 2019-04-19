@@ -29,16 +29,16 @@ class MyService {
     
     let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
     
-    func fetchData(completion: @escaping (_: [OurModel]) -> Void) {
+    func fetchData(completion: @escaping (_: [OurModel]?, Error?) -> Void) {
         _ = session.dataTask(with: url) {
             data, response, error in
             
             //checking for errors
             guard error == nil else {
-                print("error: \(error!)")
+                completion(nil, error)
                 return
             }
-            
+
             // checking for data being returned
             guard let content = data else {
                 print("No data")
@@ -52,7 +52,7 @@ class MyService {
             }
             
             // passing the jsonToModel variable to the Table View Controller
-            completion(jsonToModel)
+            completion(jsonToModel, nil)
             }.resume()
     }
 }

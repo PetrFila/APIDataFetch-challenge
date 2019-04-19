@@ -14,6 +14,7 @@
 		C995A18E222EA803004A6557 /* IndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C995A18D222EA803004A6557 /* IndexTableViewCell.swift */; };
 		C9B1AC8E222FC9BA007DA18F /* URLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1AC8D222FC9BA007DA18F /* URLSession.swift */; };
 		C9B1AC91222FD565007DA18F /* GetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1AC90222FD565007DA18F /* GetModel.swift */; };
+		C9C16B37226748E4009F4D18 /* Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C16B36226748E4009F4D18 /* Alert.swift */; };
 		C9FF4A3C2256249400CB0CE8 /* Details.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF4A3B2256249400CB0CE8 /* Details.swift */; };
 /* End PBXBuildFile section */
 
@@ -27,6 +28,7 @@
 		C995A18D222EA803004A6557 /* IndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTableViewCell.swift; sourceTree = "<group>"; };
 		C9B1AC8D222FC9BA007DA18F /* URLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession.swift; sourceTree = "<group>"; };
 		C9B1AC90222FD565007DA18F /* GetModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetModel.swift; sourceTree = "<group>"; };
+		C9C16B36226748E4009F4D18 /* Alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alert.swift; sourceTree = "<group>"; };
 		C9FF4A3B2256249400CB0CE8 /* Details.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Details.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,6 +101,7 @@
 		C9FF4A3E225A17EE00CB0CE8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				C9C16B36226748E4009F4D18 /* Alert.swift */,
 				C914ACCE222D53EA00C330A0 /* AppDelegate.swift */,
 				C914ACE0222D554100C330A0 /* IndexViewController.swift */,
 			);
@@ -181,6 +184,7 @@
 				C9B1AC8E222FC9BA007DA18F /* URLSession.swift in Sources */,
 				C914ACCF222D53EA00C330A0 /* AppDelegate.swift in Sources */,
 				C9FF4A3C2256249400CB0CE8 /* Details.swift in Sources */,
+				C9C16B37226748E4009F4D18 /* Alert.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
