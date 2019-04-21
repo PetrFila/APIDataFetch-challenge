@@ -30,7 +30,7 @@ class MyService {
     let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
     
     // endpoint with invalid JSON file for testing error handeling
-//     let url = URL(string: "https://reqres.in//api/unknown/23")!
+    // let url = URL(string: "https://reqres.in//api/unknown/23")!
     
     func fetchData(completion: @escaping (_: [OurModel]?, Error?) -> Void) {
         _ = session.dataTask(with: url) {
