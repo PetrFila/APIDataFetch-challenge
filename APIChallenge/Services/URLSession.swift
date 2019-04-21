@@ -29,12 +29,16 @@ class MyService {
     
     let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
     
+    // endpoint with invalid JSON file for testing error handeling
+//     let url = URL(string: "https://reqres.in//api/unknown/23")!
+    
     func fetchData(completion: @escaping (_: [OurModel]?, Error?) -> Void) {
         _ = session.dataTask(with: url) {
             data, response, error in
             
             //checking for errors
             guard error == nil else {
+                // passing the error variable to the Table View Controller
                 completion(nil, error)
                 return
             }
@@ -42,17 +46,22 @@ class MyService {
             // checking for data being returned
             guard let content = data else {
                 print("No data")
+                // passing the error variable to the Table View Controller
+                completion(nil, error)
                 return
             }
-            
-            // decoding the JSON and assign the data to the model
-            guard let jsonToModel = (try? JSONDecoder().decode([OurModel].self, from: content)) else {
-                print("Not containing JSON")
-                return
+
+            do {
+                let jsonToModel = try JSONDecoder().decode([OurModel].self, from: content)
+                // passing the jsonToModel variable to the Table View Controller
+                completion(jsonToModel, nil)
+
+            } catch {
+                // passing the error variable to the Table View Controller
+                completion(nil, error)
+
             }
-            
-            // passing the jsonToModel variable to the Table View Controller
-            completion(jsonToModel, nil)
+
             }.resume()
     }
 }

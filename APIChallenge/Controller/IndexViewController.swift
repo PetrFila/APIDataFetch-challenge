@@ -44,6 +44,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         super.viewDidLoad()
         
         alertMessage.isHidden = true
+        tableView.isHidden = false
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -63,22 +64,18 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         serviceClass.fetchData { person, error  in
             
             // assigning the decoded data to external variable of type array
-            
             if let error = error {
-//                self.alertMessage.isHidden = false
                 print("Error message from index controller: ", error)
-                
             }
-            
-            
+        
             self.dataInArray = person ?? []
 
-            
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
                 if error != nil {
-                    self.alertMessage.isHidden = false
+                   self.alertMessage.isHidden = false
+                   self.tableView.isHidden = true
 
                 }
                 self.tableView.reloadData()
@@ -226,6 +223,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     func constraints() {
         // this is a different way of writing constraints
         // no need to put .isActive after each and every constraint
+        // the elements are separated in different arrays for better readability. They could be all in one array
         NSLayoutConstraint.activate([
             mainSegment.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             mainSegment.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -245,8 +243,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         NSLayoutConstraint.activate([
             alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-//            alertMessage.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 10),
-//            alertMessage.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -10)
             ])
     }
     
