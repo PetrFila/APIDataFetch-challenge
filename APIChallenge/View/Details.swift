@@ -18,7 +18,6 @@ class Details: UIViewController {
     
     lazy var nameDetailView: UILabel = {
         var textView = UILabel()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.lineBreakMode = .byWordWrapping
         textView.numberOfLines = 0
         return textView
@@ -26,7 +25,6 @@ class Details: UIViewController {
     
     lazy var emailDetails: UILabel = {
         var textView = UILabel()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.lineBreakMode = .byWordWrapping
         textView.numberOfLines = 0
         return textView
@@ -34,17 +32,28 @@ class Details: UIViewController {
     
     lazy var idDetails: UILabel = {
         var textView = UILabel()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         return textView
+    }()
+    
+    lazy var stackView : UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [nameDetailView, emailDetails, idDetails])
+        stackView.axis = NSLayoutConstraint.Axis.vertical
+        stackView.spacing = 10
+        stackView.distribution = UIStackView.Distribution.fillEqually
+        return stackView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = UIColor.white
         view.addSubview(nameDetailView)
         view.addSubview(emailDetails)
         view.addSubview(idDetails)
+        view.addSubview(stackView)
+
         viewDataDetails()
+        autoresizing()
         constraints()
     }
     
@@ -71,18 +80,19 @@ class Details: UIViewController {
         }
     }
     
+    func autoresizing() {
+        nameDetailView.translatesAutoresizingMaskIntoConstraints = false
+        emailDetails.translatesAutoresizingMaskIntoConstraints = false
+        idDetails.translatesAutoresizingMaskIntoConstraints = false
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     func constraints() {
-        nameDetailView.topAnchor.constraint(equalTo: view.topAnchor, constant: 400).isActive = true
-        nameDetailView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        nameDetailView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
-
-        emailDetails.topAnchor.constraint(equalTo: nameDetailView.bottomAnchor, constant: 10).isActive = true
-        emailDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        emailDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30).isActive = true
-        
-        idDetails.topAnchor.constraint(equalTo: emailDetails.bottomAnchor, constant: 10).isActive = true
-        idDetails.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30).isActive = true
-        idDetails.rightAnchor.constraint(equalTo: view.rightAnchor, constant: 30).isActive = true
+        NSLayoutConstraint.activate([
+            stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),
+            stackView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -30)
+        ])
     }
     
     @objc func moveToIndexScreen() {

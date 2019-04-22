@@ -29,7 +29,6 @@ class IndexTableViewCell: UITableViewCell {
         textView.isUserInteractionEnabled = false
         textView.numberOfLines = 0
         textView.lineBreakMode = .byWordWrapping
-        
         return textView
     }()
     
@@ -41,9 +40,11 @@ class IndexTableViewCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        
         self.addSubview(nameView)
         self.addSubview(emailView)
         self.addSubview(displayImage)
+        
         constraints()
     }
     
@@ -72,6 +73,7 @@ class IndexTableViewCell: UITableViewCell {
     
     func constraints() {
         // word wrapping works only for  single UILabel
+        // using more repetitive way of writing constraints here just for training purposes
         nameView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         nameView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         nameView.rightAnchor.constraint(equalTo: self.displayImage.leftAnchor, constant: -100).isActive = true
