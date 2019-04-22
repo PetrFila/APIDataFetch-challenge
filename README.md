@@ -10,6 +10,12 @@
 * set up sorting for the data and assigned to the segment buttons
 * apply the segment set ups to the cells and detail screen
 
+### Fixes and improvements
+* sorting for the segment buttons moved in to one separate function
+* added error handeling and displaying error message
+* added spinner while loading data
+* added UIStackView to the details screen
+
 ### Issues and solutions
 * How to access another property of a class in another property that need to be instantiated.<br/>  -> Use lazy var
 * What's the best way to create a service method.<br/>  -> Use a class
