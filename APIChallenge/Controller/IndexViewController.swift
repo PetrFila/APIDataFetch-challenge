@@ -7,16 +7,9 @@
 //
 
 import UIKit
+import SVProgressHUD
+
 class IndexViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
-    lazy var alertMessage : UILabel = {
-       var message = UILabel()
-       message.translatesAutoresizingMaskIntoConstraints = false
-       message.text = "Something went wrong \n Try again later"
-       message.textAlignment = .center
-       message.numberOfLines = 0
-       return message
-    }()
     
     let cellIdentifier = "Cell"
     // empty array for our future data
@@ -24,9 +17,16 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
     
+    lazy var alertMessage : UILabel = {
+        var message = UILabel()
+        message.text = "Something went wrong \n Try again later"
+        message.textAlignment = .center
+        message.numberOfLines = 0
+        return message
+    }()
+    
     lazy var mainSegment: UISegmentedControl = {
         var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
-        sc.translatesAutoresizingMaskIntoConstraints = false
         sc.tintColor = UIColor.blue
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleSegmentChanges), for: .valueChanged)
@@ -35,16 +35,18 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     lazy var tableView: UITableView = {
         var table = UITableView()
-        table.translatesAutoresizingMaskIntoConstraints = false
-        
         return table
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        UIApplication.shared.beginIgnoringInteractionEvents()
+        
+//        spinner.startAnimating()
+        SVProgressHUD.show()
         alertMessage.isHidden = true
-        tableView.isHidden = false
+        tableView.isHidden = true
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -55,6 +57,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         view.addSubview(tableView)
         view.addSubview(alertMessage)
         
+        autoresizing()
         constraints()
         
         // creating object from our URL Session service class
@@ -65,25 +68,28 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             // assigning the decoded data to external variable of type array
             if let error = error {
-                print("Error message from index controller: ", error)
+                print("Error message from index controller: ", error.localizedDescription)
             }
-        
+            
             self.dataInArray = person ?? []
 
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
                 if error != nil {
+                   SVProgressHUD.dismiss()
                    self.alertMessage.isHidden = false
                    self.tableView.isHidden = true
-
+                   UIApplication.shared.endIgnoringInteractionEvents()
+                } else {
+                   SVProgressHUD.dismiss()
+                   self.tableView.isHidden = false
+                   UIApplication.shared.endIgnoringInteractionEvents()
                 }
-                self.tableView.reloadData()
                 
+                self.tableView.reloadData()
             }
-            
         }
-        
     }
     
     // MARK: - Table view data source
@@ -100,7 +106,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // checking and returning the lenght of the data array to get the right amount of cells created
         return dataInArray.count
-        
     }
     
     // this is called for every cell -> it's a loop
@@ -143,6 +148,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             cell.navImageCell = navImage
             cell.layoutSubviews()
         }
+        
         return cell
     }
     
@@ -179,11 +185,9 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             detailScreen.detailLastName = detailIndex.lastName
             detailScreen.detailEmail = detailIndex.email
             detailScreen.detailID = detailIndex.id
-            
         }
         
         self.navigationController?.pushViewController(detailScreen, animated: true)
-        
     }
     
     @objc func moveToDetailScreen() {
@@ -220,6 +224,13 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //MARK: - Constraints
     
+    func autoresizing() {
+        mainSegment.translatesAutoresizingMaskIntoConstraints = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        alertMessage.translatesAutoresizingMaskIntoConstraints = false
+//        spinner.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
     func constraints() {
         // this is a different way of writing constraints
         // no need to put .isActive after each and every constraint
@@ -242,7 +253,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         NSLayoutConstraint.activate([
             alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
     }
     
