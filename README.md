@@ -2,6 +2,8 @@
 ### iOS fetch data from an API challenge
 ![iOS_API_Challenge](https://user-images.githubusercontent.com/24504108/56087965-b0390b80-5eb9-11e9-876e-5410780566de.png)
 
+### NEED TO RUN ```POD INSTALL``` COMMAND AFTER CLONING THIS PROJECT
+
 ### Steps in what this project was created
 * created service file for API call using URLSession
 * created tableViewController and populated the data in to the cells
@@ -9,6 +11,13 @@
 * created segment control
 * set up sorting for the data and assigned to the segment buttons
 * apply the segment set ups to the cells and detail screen
+
+### Fixes and improvements
+* sorting for the segment buttons moved in to one separate function
+* added error handeling and displaying error message
+* added spinner while loading data
+* added UIStackView to the details screen
+* added Cocoapods and a new spinner from Pod library
 
 ### Issues and solutions
 * How to access another property of a class in another property that need to be instantiated.<br/>  -> Use lazy var
