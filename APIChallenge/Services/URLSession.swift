@@ -52,6 +52,8 @@ class MyService {
             }
 
             do {
+                // .decode function is a throwing function.
+                // It usually requires "try" and also usage of do/catch block to capture errors
                 let jsonToModel = try JSONDecoder().decode([OurModel].self, from: content)
                 // passing the jsonToModel variable to the Table View Controller
                 completion(jsonToModel, nil)

@@ -72,7 +72,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             // assigning the decoded data to external variable of type array
             if let error = error {
-                print("Error message from index controller: ", error)
+                print("Error message from index controller: ", error.localizedDescription)
             }
             
             self.dataInArray = person ?? []
