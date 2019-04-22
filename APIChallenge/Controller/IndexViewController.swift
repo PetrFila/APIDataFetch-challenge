@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SVProgressHUD
+
 class IndexViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let cellIdentifier = "Cell"
@@ -14,12 +16,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     var dataInArray = [OurModel]()
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
-    
-    lazy var spinner : UIActivityIndicatorView = {
-        let spinner = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
-        spinner.style = UIActivityIndicatorView.Style.gray
-        return spinner
-    }()
     
     lazy var alertMessage : UILabel = {
         var message = UILabel()
@@ -47,7 +43,8 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-        spinner.startAnimating()
+//        spinner.startAnimating()
+        SVProgressHUD.show()
         alertMessage.isHidden = true
         tableView.isHidden = true
         
@@ -59,7 +56,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         view.addSubview(mainSegment)
         view.addSubview(tableView)
         view.addSubview(alertMessage)
-        view.addSubview(spinner)
         
         autoresizing()
         constraints()
@@ -81,12 +77,12 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
                 if error != nil {
-                   self.spinner.stopAnimating()
+                   SVProgressHUD.dismiss()
                    self.alertMessage.isHidden = false
                    self.tableView.isHidden = true
                    UIApplication.shared.endIgnoringInteractionEvents()
                 } else {
-                   self.spinner.stopAnimating()
+                   SVProgressHUD.dismiss()
                    self.tableView.isHidden = false
                    UIApplication.shared.endIgnoringInteractionEvents()
                 }
@@ -232,7 +228,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         mainSegment.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         alertMessage.translatesAutoresizingMaskIntoConstraints = false
-        spinner.translatesAutoresizingMaskIntoConstraints = false
+//        spinner.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func constraints() {
@@ -258,11 +254,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         NSLayoutConstraint.activate([
             alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
-        
-        NSLayoutConstraint.activate([
-            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
             ])
     }
     
