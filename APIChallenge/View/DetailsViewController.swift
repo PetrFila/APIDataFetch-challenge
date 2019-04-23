@@ -53,8 +53,8 @@ class Details: UIViewController {
         view.addSubview(stackView)
 
         viewDataDetails()
-        autoresizing()
-        constraints()
+        translateAutoresizingConstraints()
+        setConstraints()
     }
     
     func viewDataDetails() {
@@ -80,14 +80,14 @@ class Details: UIViewController {
         }
     }
     
-    func autoresizing() {
+    func translateAutoresizingConstraints() {
         nameDetailView.translatesAutoresizingMaskIntoConstraints = false
         emailDetails.translatesAutoresizingMaskIntoConstraints = false
         idDetails.translatesAutoresizingMaskIntoConstraints = false
         stackView.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func constraints() {
+    func setConstraints() {
         NSLayoutConstraint.activate([
             stackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             stackView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 30),

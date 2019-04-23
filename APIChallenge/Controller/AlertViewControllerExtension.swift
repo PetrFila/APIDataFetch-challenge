@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 // Can't make it work on the IndexViewController
-class Alert: UIViewController {
-    func sessionError(vc: UIViewController, title: String, message: String) {
-        let alert = UIAlertController(title: "Shit",
-                                      message: "Something went wrong",
+extension UIViewController {
+    func sessionError(title: String, message: String) {
+        let alert = UIAlertController(title: title,
+                                      message: message,
                                       preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title:"OK",
                                       style: UIAlertAction.Style.default,
                                       handler: nil))
-        vc.present(alert, animated: true)
+        present(alert, animated: true)
     }
 }

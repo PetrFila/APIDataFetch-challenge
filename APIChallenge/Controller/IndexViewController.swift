@@ -17,14 +17,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
     
-    lazy var alertMessage : UILabel = {
-        var message = UILabel()
-        message.text = "Something went wrong \n Try again later"
-        message.textAlignment = .center
-        message.numberOfLines = 0
-        return message
-    }()
-    
     lazy var mainSegment: UISegmentedControl = {
         var sc = UISegmentedControl(items: ["ID", "First Name", "Last Name"])
         sc.tintColor = UIColor.blue
@@ -43,9 +35,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         UIApplication.shared.beginIgnoringInteractionEvents()
         
-//        spinner.startAnimating()
         SVProgressHUD.show()
-        alertMessage.isHidden = true
         tableView.isHidden = true
         
         tableView.delegate = self
@@ -55,13 +45,13 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         view.backgroundColor = UIColor.white
         view.addSubview(mainSegment)
         view.addSubview(tableView)
-        view.addSubview(alertMessage)
+//        view.addSubview(alertMessage)
         
-        autoresizing()
-        constraints()
+        translateAutoresizingConstraints()
+        setConstraints()
         
         // creating object from our URL Session service class
-        let serviceClass = MyService()
+        let serviceClass = APICall()
         // using the object method to fetch data from API
         // using closure to pass the data to this controller
         serviceClass.fetchData { person, error  in
@@ -76,16 +66,15 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
+                
                 if error != nil {
-                   SVProgressHUD.dismiss()
-                   self.alertMessage.isHidden = false
-                   self.tableView.isHidden = true
-                   UIApplication.shared.endIgnoringInteractionEvents()
-                } else {
-                   SVProgressHUD.dismiss()
-                   self.tableView.isHidden = false
-                   UIApplication.shared.endIgnoringInteractionEvents()
+                   self.sessionError(title: "Damn", message: "Something went wrong")
                 }
+                
+                SVProgressHUD.dismiss()
+                self.tableView.isHidden = false
+                UIApplication.shared.endIgnoringInteractionEvents()
+                
                 
                 self.tableView.reloadData()
             }
@@ -224,14 +213,14 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     //MARK: - Constraints
     
-    func autoresizing() {
+    func translateAutoresizingConstraints() {
         mainSegment.translatesAutoresizingMaskIntoConstraints = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        alertMessage.translatesAutoresizingMaskIntoConstraints = false
+//        alertMessage.translatesAutoresizingMaskIntoConstraints = false
 //        spinner.translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func constraints() {
+    func setConstraints() {
         // this is a different way of writing constraints
         // no need to put .isActive after each and every constraint
         // the elements are separated in different arrays for better readability. They could be all in one array
@@ -251,10 +240,10 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
         
-        NSLayoutConstraint.activate([
-            alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-            ])
+//        NSLayoutConstraint.activate([
+//            alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+//            ])
     }
     
 }

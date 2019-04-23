@@ -45,7 +45,7 @@ class IndexTableViewCell: UITableViewCell {
         self.addSubview(emailView)
         self.addSubview(displayImage)
         
-        constraints()
+        setConstraints()
     }
     
     override func layoutSubviews() {
@@ -71,7 +71,7 @@ class IndexTableViewCell: UITableViewCell {
         }
     }
     
-    func constraints() {
+    func setConstraints() {
         // word wrapping works only for  single UILabel
         // using more repetitive way of writing constraints here just for training purposes
         nameView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
