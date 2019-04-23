@@ -27,12 +27,12 @@ class APICall {
         URLSession(configuration: config)
     }()
     
-//    let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
+    let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")!
     
     // endpoint with invalid JSON file for testing error handeling
-     let url = URL(string: "https://reqres.in//api/unknown/23")!
+//     let url = URL(string: "https://reqres.in//api/unknown/23")!
     
-    func fetchData(completion: @escaping (_: [OurModel]?, Error?) -> Void) {
+    func fetchData(completion: @escaping (_: [UserModel]?, Error?) -> Void) {
         _ = session.dataTask(with: url) {
             data, response, error in
             
@@ -54,7 +54,7 @@ class APICall {
             do {
                 // .decode function is a throwing function.
                 // It usually requires "try" and also usage of do/catch block to capture errors
-                let jsonToModel = try JSONDecoder().decode([OurModel].self, from: content)
+                let jsonToModel = try JSONDecoder().decode([UserModel].self, from: content)
                 // passing the jsonToModel variable to the Table View Controller
                 completion(jsonToModel, nil)
 

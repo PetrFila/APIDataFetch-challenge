@@ -12,6 +12,7 @@
 		C914ACD6222D53EB00C330A0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C914ACD5222D53EB00C330A0 /* Assets.xcassets */; };
 		C914ACE2222D554100C330A0 /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C914ACE0222D554100C330A0 /* IndexViewController.swift */; };
 		C914ACE3222D554100C330A0 /* default.xib in Resources */ = {isa = PBXBuildFile; fileRef = C914ACE1222D554100C330A0 /* default.xib */; };
+		C9185DCD226F682100F39C88 /* AutoresizingConstrainsExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9185DCC226F682100F39C88 /* AutoresizingConstrainsExtension.swift */; };
 		C995A18E222EA803004A6557 /* IndexTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C995A18D222EA803004A6557 /* IndexTableViewCell.swift */; };
 		C9B1AC8E222FC9BA007DA18F /* APICall.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1AC8D222FC9BA007DA18F /* APICall.swift */; };
 		C9B1AC91222FD565007DA18F /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9B1AC90222FD565007DA18F /* User.swift */; };
@@ -28,6 +29,7 @@
 		C914ACDA222D53EB00C330A0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C914ACE0222D554100C330A0 /* IndexViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
 		C914ACE1222D554100C330A0 /* default.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = default.xib; sourceTree = "<group>"; };
+		C9185DCC226F682100F39C88 /* AutoresizingConstrainsExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoresizingConstrainsExtension.swift; sourceTree = "<group>"; };
 		C995A18D222EA803004A6557 /* IndexTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexTableViewCell.swift; sourceTree = "<group>"; };
 		C9B1AC8D222FC9BA007DA18F /* APICall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APICall.swift; sourceTree = "<group>"; };
 		C9B1AC90222FD565007DA18F /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -81,12 +83,22 @@
 			children = (
 				C9FF4A3D225A17D700CB0CE8 /* View */,
 				C9FF4A3E225A17EE00CB0CE8 /* Controller */,
+				C9185DCB226F67CA00F39C88 /* Extensions */,
 				C9B1AC8F222FD536007DA18F /* Models */,
 				C9B1AC8C222FC996007DA18F /* Services */,
 				C914ACD5222D53EB00C330A0 /* Assets.xcassets */,
 				C914ACDA222D53EB00C330A0 /* Info.plist */,
 			);
 			path = APIChallenge;
+			sourceTree = "<group>";
+		};
+		C9185DCB226F67CA00F39C88 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				C9C16B36226748E4009F4D18 /* AlertViewControllerExtension.swift */,
+				C9185DCC226F682100F39C88 /* AutoresizingConstrainsExtension.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		C9B1AC8C222FC996007DA18F /* Services */ = {
@@ -117,7 +129,6 @@
 		C9FF4A3E225A17EE00CB0CE8 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				C9C16B36226748E4009F4D18 /* AlertViewControllerExtension.swift */,
 				C914ACCE222D53EA00C330A0 /* AppDelegate.swift */,
 				C914ACE0222D554100C330A0 /* IndexViewController.swift */,
 			);
@@ -256,6 +267,7 @@
 				C914ACE2222D554100C330A0 /* IndexViewController.swift in Sources */,
 				C9B1AC8E222FC9BA007DA18F /* APICall.swift in Sources */,
 				C914ACCF222D53EA00C330A0 /* AppDelegate.swift in Sources */,
+				C9185DCD226F682100F39C88 /* AutoresizingConstrainsExtension.swift in Sources */,
 				C9FF4A3C2256249400CB0CE8 /* DetailsViewController.swift in Sources */,
 				C9C16B37226748E4009F4D18 /* AlertViewControllerExtension.swift in Sources */,
 			);

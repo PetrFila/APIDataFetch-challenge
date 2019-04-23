@@ -17,7 +17,6 @@ class IndexTableViewCell: UITableViewCell {
     
     lazy var nameView: UILabel = {
        var text = UILabel()
-       text.translatesAutoresizingMaskIntoConstraints = false
        text.lineBreakMode = .byWordWrapping
        text.numberOfLines = 0
        return text
@@ -25,7 +24,6 @@ class IndexTableViewCell: UITableViewCell {
     
     lazy var emailView: UILabel = {
         var textView = UILabel()
-        textView.translatesAutoresizingMaskIntoConstraints = false
         textView.isUserInteractionEnabled = false
         textView.numberOfLines = 0
         textView.lineBreakMode = .byWordWrapping
@@ -34,7 +32,6 @@ class IndexTableViewCell: UITableViewCell {
     
     lazy var displayImage: UIImageView = {
         var image = UIImageView()
-        image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
     
@@ -45,6 +42,7 @@ class IndexTableViewCell: UITableViewCell {
         self.addSubview(emailView)
         self.addSubview(displayImage)
         
+        translateAutoresizingConstraints()
         setConstraints()
     }
     
@@ -69,6 +67,12 @@ class IndexTableViewCell: UITableViewCell {
         if let navImageCell = navImageCell {
             displayImage.image = navImageCell
         }
+    }
+    
+    func translateAutoresizingConstraints() {
+        nameView.translateAutoresizingConstraintsToElements()
+        emailView.translateAutoresizingConstraintsToElements()
+        displayImage.translateAutoresizingConstraintsToElements()
     }
     
     func setConstraints() {

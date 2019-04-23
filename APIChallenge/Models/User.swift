@@ -8,7 +8,7 @@
 
 import UIKit
 
-struct OurModel: Decodable {
+struct UserModel: Decodable {
     var id: Int
     var firstName: String?
     var lastName: String?

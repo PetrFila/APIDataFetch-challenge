@@ -81,10 +81,10 @@ class Details: UIViewController {
     }
     
     func translateAutoresizingConstraints() {
-        nameDetailView.translatesAutoresizingMaskIntoConstraints = false
-        emailDetails.translatesAutoresizingMaskIntoConstraints = false
-        idDetails.translatesAutoresizingMaskIntoConstraints = false
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        nameDetailView.translateAutoresizingConstraintsToElements()
+        emailDetails.translateAutoresizingConstraintsToElements()
+        idDetails.translateAutoresizingConstraintsToElements()
+        stackView.translateAutoresizingConstraintsToElements()
     }
     
     func setConstraints() {

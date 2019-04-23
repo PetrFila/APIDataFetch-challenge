@@ -13,7 +13,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     let cellIdentifier = "Cell"
     // empty array for our future data
-    var dataInArray = [OurModel]()
+    var dataInArray = [UserModel]()
     // arrow image in the cell
     var navImage = UIImage(named: "icons8-back-96")
     
@@ -45,7 +45,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         view.backgroundColor = UIColor.white
         view.addSubview(mainSegment)
         view.addSubview(tableView)
-//        view.addSubview(alertMessage)
         
         translateAutoresizingConstraints()
         setConstraints()
@@ -214,10 +213,9 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     //MARK: - Constraints
     
     func translateAutoresizingConstraints() {
-        mainSegment.translatesAutoresizingMaskIntoConstraints = false
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-//        alertMessage.translatesAutoresizingMaskIntoConstraints = false
-//        spinner.translatesAutoresizingMaskIntoConstraints = false
+        mainSegment.translateAutoresizingConstraintsToElements()
+        tableView.translateAutoresizingConstraintsToElements()
+        
     }
     
     func setConstraints() {
@@ -240,10 +238,6 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
             ])
         
-//        NSLayoutConstraint.activate([
-//            alertMessage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            alertMessage.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-//            ])
     }
     
 }
