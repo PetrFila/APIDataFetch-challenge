@@ -57,7 +57,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             // assigning the decoded data to external variable of type array
             if let error = error {
-                print("Error message from index controller: ", error.localizedDescription)
+                print("Error message from index controller: ", error)
             }
             
             self.dataInArray = person ?? []
@@ -67,7 +67,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             DispatchQueue.main.async {
                 
                 if error != nil {
-                   self.sessionError(title: "Damn", message: "Something went wrong")
+                    self.sessionError(title: "Damn", message: error?.localizedDescription ?? "Something went wrong")
                 }
                 
                 SVProgressHUD.dismiss()
@@ -107,7 +107,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         switch mainSegment.selectedSegmentIndex {
         case 0:
-            // sorting was set up here -> bad practice as it is a loop inside of a loop
+            // sorting was originally set up here -> bad practice as it is a loop inside of a loop
             let ourModelAtRow = dataInArray[indexPath.row]
             cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
             cell.lastName = ourModelAtRow.lastName
