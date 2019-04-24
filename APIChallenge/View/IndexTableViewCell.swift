@@ -70,9 +70,9 @@ class IndexTableViewCell: UITableViewCell {
     }
     
     func translateAutoresizingConstraints() {
-        nameView.translateAutoresizingConstraintsToElements()
-        emailView.translateAutoresizingConstraintsToElements()
-        displayImage.translateAutoresizingConstraintsToElements()
+        translateAutoresizingConstraintsToElements(view: nameView)
+        translateAutoresizingConstraintsToElements(view: emailView)
+        translateAutoresizingConstraintsToElements(view: displayImage)
     }
     
     func setConstraints() {

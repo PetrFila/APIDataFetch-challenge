@@ -105,37 +105,13 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         //Configure the cell...
         
-        switch mainSegment.selectedSegmentIndex {
-        case 0:
-            // sorting was originally set up here -> bad practice as it is a loop inside of a loop
-            let ourModelAtRow = dataInArray[indexPath.row]
-            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
-            cell.lastName = ourModelAtRow.lastName
-            cell.email = ourModelAtRow.email
-            cell.navImageCell = navImage
-            cell.layoutSubviews()
-        case 1:
-            let ourModelAtRow = dataInArray[indexPath.row]
-            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
-            cell.lastName = ourModelAtRow.lastName
-            cell.email = ourModelAtRow.email
-            cell.navImageCell = navImage
-            cell.layoutSubviews()
-        case 2:
-            let ourModelAtRow = dataInArray[indexPath.row]
-            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
-            cell.lastName = ourModelAtRow.lastName
-            cell.email = ourModelAtRow.email
-            cell.navImageCell = navImage
-            cell.layoutSubviews()
-        default:
-            let ourModelAtRow = dataInArray[indexPath.row]
-            cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
-            cell.lastName = ourModelAtRow.lastName
-            cell.email = ourModelAtRow.email
-            cell.navImageCell = navImage
-            cell.layoutSubviews()
-        }
+        // sorting was originally set up here -> bad practice as it is a loop inside of a loop
+        let ourModelAtRow = dataInArray[indexPath.row]
+        cell.firstName = ourModelAtRow.firstName  // dataInArray[1]
+        cell.lastName = ourModelAtRow.lastName
+        cell.email = ourModelAtRow.email
+        cell.navImageCell = navImage
+        cell.layoutSubviews()
         
         return cell
     }
@@ -146,34 +122,11 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let detailScreen = Details()
         
-        switch mainSegment.selectedSegmentIndex {
-        // sorting was set up here -> bad practice as it is a loop inside of a loop
-        case 0:
-            let detailIndex = dataInArray[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.firstName
-            detailScreen.detailLastName = detailIndex.lastName
-            detailScreen.detailEmail = detailIndex.email
-            detailScreen.detailID = detailIndex.id
-            
-        case 1:
-            let detailIndex = dataInArray[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.firstName
-            detailScreen.detailLastName = detailIndex.lastName
-            detailScreen.detailEmail = detailIndex.email
-            detailScreen.detailID = detailIndex.id
-        case 2:
-            let detailIndex = dataInArray[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.firstName
-            detailScreen.detailLastName = detailIndex.lastName
-            detailScreen.detailEmail = detailIndex.email
-            detailScreen.detailID = detailIndex.id
-        default:
-            let detailIndex = dataInArray[indexPath.row]
-            detailScreen.detailFirstName = detailIndex.firstName
-            detailScreen.detailLastName = detailIndex.lastName
-            detailScreen.detailEmail = detailIndex.email
-            detailScreen.detailID = detailIndex.id
-        }
+        let detailIndex = dataInArray[indexPath.row]
+        detailScreen.detailFirstName = detailIndex.firstName
+        detailScreen.detailLastName = detailIndex.lastName
+        detailScreen.detailEmail = detailIndex.email
+        detailScreen.detailID = detailIndex.id
         
         self.navigationController?.pushViewController(detailScreen, animated: true)
     }
@@ -213,8 +166,9 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     //MARK: - Constraints
     
     func translateAutoresizingConstraints() {
-        mainSegment.translateAutoresizingConstraintsToElements()
-        tableView.translateAutoresizingConstraintsToElements()
+        
+        view.translateAutoresizingConstraintsToElements(view: mainSegment)
+        view.translateAutoresizingConstraintsToElements(view: tableView)
         
     }
     

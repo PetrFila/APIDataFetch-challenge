@@ -10,8 +10,8 @@ import Foundation
 import UIKit
 
 extension UIView {
-    func translateAutoresizingConstraintsToElements() {
-        translatesAutoresizingMaskIntoConstraints = false
-        return
+    func translateAutoresizingConstraintsToElements(view: UIView) {
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return 
     }
 }

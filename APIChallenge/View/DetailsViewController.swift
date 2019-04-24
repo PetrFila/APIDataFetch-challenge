@@ -81,10 +81,10 @@ class Details: UIViewController {
     }
     
     func translateAutoresizingConstraints() {
-        nameDetailView.translateAutoresizingConstraintsToElements()
-        emailDetails.translateAutoresizingConstraintsToElements()
-        idDetails.translateAutoresizingConstraintsToElements()
-        stackView.translateAutoresizingConstraintsToElements()
+        view.translateAutoresizingConstraintsToElements(view: nameDetailView)
+        view.translateAutoresizingConstraintsToElements(view: emailDetails)
+        view.translateAutoresizingConstraintsToElements(view: idDetails)
+        view.translateAutoresizingConstraintsToElements(view: stackView)
     }
     
     func setConstraints() {
