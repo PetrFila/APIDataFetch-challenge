@@ -10,6 +10,7 @@ import UIKit
 
 class IndexTableViewCell: UITableViewCell {
     
+//    var tableViewCellData = [UserModel]()
     var firstName: String?
     var lastName: String?
     var email: String?

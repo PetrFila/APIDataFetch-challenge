@@ -112,7 +112,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.email = ourModelAtRow.email
         cell.navImageCell = navImage
         cell.layoutSubviews()
-        
+//        cell.tableViewCellData = dataInArray
         return cell
     }
     
