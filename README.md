@@ -2,7 +2,7 @@
 ### iOS fetch data from an API challenge
 ![iOS_API_Challenge](https://user-images.githubusercontent.com/24504108/56087965-b0390b80-5eb9-11e9-876e-5410780566de.png)
 
-run ```pod install``` command after cloning this project
+run ```pod install``` command after cloning this project<br/>
 If the app doesn't build try reinstall the pod<br/>
 ```pod deintegrate```<br/>
 ```pod install```
