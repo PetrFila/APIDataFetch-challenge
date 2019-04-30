@@ -29,18 +29,20 @@ class APICall {
     
     let url = URL(string: "https://gist.githubusercontent.com/douughios/f3c382f543a303984c72abfc1d930af8/raw/5e6745333061fa010c64753dc7a80b3354ae324e/test-users.json")
     
-    // endpoint with invalid JSON file for testing error handeling
-//     let url = URL(string: "https://reqres.in//api/unknown/23")
     
-//    let url = URL(string: "")
+    // endpoint with invalid JSON file for testing error handeling
+    //     let url = URL(string: "https://reqres.in//api/unknown/23")
+    
+    //    let url = URL(string: "")
     
     func fetchData(completion: @escaping (_: [UserModel]?, Error?) -> Void) {
-       
+        
         guard let urlCheck = url else {
-            print("empty URL")
+            let urlError = NSError(domain: "", code: 500, userInfo: [NSLocalizedDescriptionKey : "Empty URL"])
+            completion(nil, urlError)
             return
         }
-    
+        
         _ = session.dataTask(with: urlCheck) {
             data, response, error in
             
@@ -50,7 +52,7 @@ class APICall {
                 completion(nil, error)
                 return
             }
-
+            
             // checking for data being returned
             guard let content = data else {
                 print("No data")
@@ -58,20 +60,20 @@ class APICall {
                 completion(nil, error)
                 return
             }
-
+            
             do {
                 // .decode function is a throwing function.
                 // It usually requires "try" and also usage of do/catch block to capture errors
                 let jsonToModel = try JSONDecoder().decode([UserModel].self, from: content)
                 // passing the jsonToModel variable to the Table View Controller
                 completion(jsonToModel, nil)
-
+                
             } catch {
                 // passing the error variable to the Table View Controller
                 completion(nil, error)
-
+                
             }
-
+            
             }.resume()
     }
 }

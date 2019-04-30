@@ -61,7 +61,7 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             
             self.dataInArray = person ?? []
-
+            
             // Dispatch view reloads the screen again after the data is fetched and appended to the arrays
             // The problem here is that the arrays get loaded to the screen before the data from the internet can be fetched and populated.
             DispatchQueue.main.async {
@@ -112,21 +112,19 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
         cell.email = ourModelAtRow.email
         cell.navImageCell = navImage
         cell.layoutSubviews()
-//        cell.tableViewCellData = dataInArray
+        //        cell.tableViewCellData = dataInArray
         return cell
     }
     
     // this function recognises what the user taps on by getting the number of cell index from the table view array
-
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let detailScreen = Details()
-        
-        let detailIndex = dataInArray[indexPath.row]
-        detailScreen.detailFirstName = detailIndex.firstName
-        detailScreen.detailLastName = detailIndex.lastName
-        detailScreen.detailEmail = detailIndex.email
-        detailScreen.detailID = detailIndex.id
+        // same approach as above
+        // looping through the dataArray using indexPath and assigning the data to our model on the Detail screen
+        let modelIntheRow = dataInArray[indexPath.row]
+        detailScreen.modelToDisplay = modelIntheRow
         
         self.navigationController?.pushViewController(detailScreen, animated: true)
     }
