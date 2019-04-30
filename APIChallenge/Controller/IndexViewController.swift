@@ -121,13 +121,11 @@ class IndexViewController: UIViewController, UITableViewDataSource, UITableViewD
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let detailScreen = Details()
-        
-        let detailIndex = dataInArray[indexPath.row]
-        detailScreen.detailFirstName = detailIndex.firstName
-        detailScreen.detailLastName = detailIndex.lastName
-        detailScreen.detailEmail = detailIndex.email
-        detailScreen.detailID = detailIndex.id
-        
+        // same approach as above
+        // looping through the dataArray using indexPath and assigning the data to our model on the Detail screen
+        let modelIntheRow = dataInArray[indexPath.row]
+        detailScreen.modelToDisplay = modelIntheRow
+    
         self.navigationController?.pushViewController(detailScreen, animated: true)
     }
     

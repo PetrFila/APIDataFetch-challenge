@@ -11,10 +11,9 @@ import UIKit
 
 class Details: UIViewController {
     
-    var detailFirstName: String?
-    var detailLastName: String?
-    var detailEmail: String?
-    var detailID: Int?
+    //we are re-using the model again to receive data details from the indexViewController
+    // this variable's type is assigned to the model to match the incoming data type object
+    var modelToDisplay: UserModel?
     
     lazy var nameDetailView: UILabel = {
         var textView = UILabel()
@@ -61,21 +60,21 @@ class Details: UIViewController {
         
         var nameDetailTuple: (String, String) = ("","")
         
-        if let detailFirstName = detailFirstName {
+        if let detailFirstName = modelToDisplay?.firstName {
             nameDetailTuple.0 = detailFirstName
         }
         
-        if let detailLastName = detailLastName {
+        if let detailLastName = modelToDisplay?.lastName {
             nameDetailTuple.1 = detailLastName
         }
         
         nameDetailView.text = nameDetailTuple.0 + " " + nameDetailTuple.1
         
-        if let detailEmail = detailEmail {
+        if let detailEmail = modelToDisplay?.email {
             emailDetails.text = detailEmail
         }
         
-        if let detailID = detailID {
+        if let detailID = modelToDisplay?.id {
             idDetails.text = String(detailID)
         }
     }
